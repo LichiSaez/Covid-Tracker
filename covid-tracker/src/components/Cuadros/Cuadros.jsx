@@ -3,7 +3,7 @@ import { fetchDailyData } from "../../api";
 import { Line, Bar } from "react-chartjs-2";
 import styles from "./Cuadros.module.css";
 
-const Cuadros = () => {
+const Cuadros = ({ data:{confirmed, recovered, deaths}, country }) => {
   const [dailyData, setDailyData] = useState([]);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const Cuadros = () => {
     };
 
     traerAPI();
-  });
+  }, []);
 
   const cuadroLinear = dailyData.length ? (
     <Line
@@ -37,7 +37,28 @@ const Cuadros = () => {
     />
   ) : null;
 
-  return <div className={styles.container}>{cuadroLinear}</div>;
+  const cuadroBarras = (
+    confirmed ? <Bar 
+      data={{
+        labels: ['Infectados', 'Recuperados', 'Muertos'],
+        datasets: [{
+          label: 'Personas',
+          backgroundColor: [
+            'rgba(23, 23, 216, 0.5)',
+            'rgba(23, 216, 39, 0.5)',
+            'rgba(231, 44, 11, 0.5)'
+          ],
+          data: [confirmed.value, recovered.value, deaths.value]
+        }]
+      }}
+      options={{
+        legend: {display:false},
+        title: {display:true, text:`Current state in ${country}`},
+      }}
+    /> : null
+  );
+
+  return <div className={styles.container}>{country ? cuadroBarras : cuadroLinear}</div>;
 };
 
 export default Cuadros;
