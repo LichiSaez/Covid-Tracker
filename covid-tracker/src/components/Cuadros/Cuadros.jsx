@@ -42,13 +42,12 @@ const Cuadros = ({ data:{confirmed, recovered, deaths}, country }) => {
       data={{
         labels: ['Infectados', 'Recuperados', 'Muertos'],
         datasets: [{
-          label: 'Personas',
+          data: [confirmed.value, recovered.value, deaths.value],
           backgroundColor: [
             'rgba(23, 23, 216, 0.5)',
             'rgba(23, 216, 39, 0.5)',
             'rgba(231, 44, 11, 0.5)'
           ],
-          data: [confirmed.value, recovered.value, deaths.value]
         }]
       }}
       options={{
