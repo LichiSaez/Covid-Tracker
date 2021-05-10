@@ -27,7 +27,7 @@ const Cuadros = ({ data:{confirmed, recovered, deaths}, country }) => {
           },
           {
             data: dailyData.map(({ deaths }) => deaths),
-            label: "Infectados",
+            label: "Muertos",
             borderColor: "red",
             backgroundColor: "rgba(255,0,0,0.5",
             fill: true,
